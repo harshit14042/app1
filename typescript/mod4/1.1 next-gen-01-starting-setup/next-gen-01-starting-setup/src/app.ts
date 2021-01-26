@@ -1,50 +1,41 @@
-interface person{
-    name: string;
-    age: number;
-    greet(phrase:string):void;
+//TypeCasting
+
+// const inputElement = document.getElementById("inputElement")! as HTMLInputElement;
+// const inputElement = <HTMLInputElement>document.getElementById("inputElement")!;
+const inputElement = document.getElementById("inputElement");
+if(inputElement){
+    (inputElement as HTMLInputElement).value = "Hello";
 }
 
-let user1:person;
 
-user1 = {
+//Key Value pairs
+interface ErrorContainer{
+    [prop: string]: string;
+}
+
+const errorBag: ErrorContainer={
+    'email':'Not a valid email !!',
+    'username':'Not a valid Username!!'
+}
+
+console.log(errorBag.email);
+
+
+
+const owner = {
     name:'Harshit',
     age: 25,
-    greet(phrase: string){
-        console.log(`${phrase} ${this.name}`);
-    }
+    job:{title:'CEO', desciption: 'Startup'}
+};
+//Optional CHaining
+console.log(owner?.job?.title);
+
+
+//Generics
+function merge<T, U>(a:T,b:U){
+    return Object.assign(a,b);
 }
 
-interface Named{
-    readonly name?:string;//To mark some prop as optional
-}
+const obj = merge({name:'Max', hobbies:['hello']},{age:20});
 
-interface Greetable extends Named{
-    // readonly name: string;
-    greet:(phrase:string)=>void;
-}
-
-user1.greet('Hi There, ');
-
-class Person implements Greetable{
-    name?: string;
-    constructor(n?:string){
-        if(n){
-            this.name=n;
-        }
-    }
-    greet(phrase: string){
-        if(this.name){
-            console.log(`${phrase} ${this.name}`);
-        }
-        else{
-            console.log('Hi');
-        }
-        
-    }
-}
-
-const user2: Person = new Person('Harshit');
-const user3: Person = new Person();
-
-user2.greet('He there from Class implementing interface, ');
-user3.greet('He there from Class implementing interface, ');
+console.log(obj);
